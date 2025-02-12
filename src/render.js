@@ -59,13 +59,15 @@ function cleanup() {
   mountedWrappers.forEach(cleanupAtWrapper)
 }
 
-function cleanupAtWrapper({wrapper, container}) {
+function cleanupAtWrapper(entry) {
+  const {wrapper, container} = entry
+
   if (container.parentNode === document.body) {
     document.body.removeChild(container)
   }
 
   wrapper.unmount()
-  mountedWrappers.delete(wrapper)
+  mountedWrappers.delete(entry)
 }
 
 export {render, cleanup}

@@ -34,7 +34,7 @@ Check out the test examples on GitHub for further details.`)
   // https://github.com/vuejs/vue-test-utils-next/blob/master/src/mount.ts#L309
   unwrapNode(wrapper.parentElement)
 
-  mountedWrappers.add(wrapper)
+  mountedWrappers.add({wrapper, container})
 
   return {
     container,
@@ -59,9 +59,9 @@ function cleanup() {
   mountedWrappers.forEach(cleanupAtWrapper)
 }
 
-function cleanupAtWrapper(wrapper) {
-  if (wrapper.element?.parentNode?.parentNode === document.body) {
-    document.body.removeChild(wrapper.element.parentNode)
+function cleanupAtWrapper({wrapper, container}) {
+  if (container.parentNode === document.body) {
+    document.body.removeChild(container)
   }
 
   wrapper.unmount()
